@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<string.h>
 struct Student
 {
 	int id;
@@ -24,6 +25,15 @@ int main()
 		break;
 		case 2:
 			displayall();
+		break;
+		case 3:
+			display();
+		break;
+		case 4:
+			update();
+		break;
+		case 5:
+			deleted();
 		break;
 	}
 	char select;
@@ -64,4 +74,83 @@ void displayall()
 		printf("\n%d  |   %s    |  %d",s[i].id,s[i].name,s[i].percentage);
 	}
 	printf("\n---------------------------");
+}
+
+void display()
+{
+	int id,i;
+	printf("\nEnter the id = ");
+	scanf("%d",&id);
+	printf("\n---------------------------");
+	printf("\nID  |  NAME   |  PERCENTAGE");
+	printf("\n---------------------------");
+	for(i=0;i<index;i++)
+	{
+		if(id==s[i].id)
+		{
+			printf("\n%d  |   %s    |  %d",s[i].id,s[i].name,s[i].percentage);	
+		}
+	}
+	printf("\n---------------------------");
+}
+
+void update()
+{
+	int choice,id,i;
+	char change[50];
+	int per;
+	printf("\n1.Update your name");
+	printf("\n2.Update your percentage");
+	printf("\nEnter your choice = ");
+	scanf("%d",&choice);
+	switch(choice)
+	{
+		case 1:
+			printf("\nEnter the id = ");
+			scanf("%d",&id);
+			printf("\nUpdated name = ");
+			scanf("%s",change);
+			for(i=0;i<index;i++)
+			{
+				if(id==s[i].id)
+				{
+					strcpy(s[i].name,change);
+				}
+			}
+		break;
+		case 2:
+			printf("\nEnter the id = ");
+			scanf("%d",&id);
+			printf("\nUpdated percentage = ");
+			scanf("%d",&per);
+			for(i=0;i<index;i++)
+			{
+				if(id==s[i].id)
+				{
+					s[i].percentage = per;
+				}
+			}
+		break;
+	}
+}
+void deleted()
+{
+	int id,i,ind;
+	int j = index;
+	printf("\nEnter the id = ");
+	scanf("%d",&id);
+	for(i=0;i<index;i++)
+	{
+		if(id==s[i].id)
+		{
+			ind = i;
+		}
+	}
+	for(i=ind;i<j;i++)
+	{
+		s[i].id = s[i+1].id;
+		strcpy(s[i].name,s[i+1].name);
+		s[i].percentage = s[i+1].percentage;
+	}
+	index--;
 }
